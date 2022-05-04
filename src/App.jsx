@@ -7,8 +7,11 @@ export const App = () => {
     "あああああ",
     "いいいいい"
   ]);
+
   const [completeTodos, setCompleteTodos] = useState(["ううううう"]);
+
   const onChangeTodoText = (event) => setTodoText(event.target.value);
+
   const onClickAdd = () => {
     if (todoText === "") return;
     const newTodos = [...incompleteTodos, todoText];
@@ -17,7 +20,18 @@ export const App = () => {
   };
 
   const onClickDelete = (index) => {
-    alert(index);
+    const newTodos = [...incompleteTodos];
+    newTodos.splice(index, 1);
+    setInCompleteTodos(newTodos);
+  };
+
+  const onClickComplete = (index) => {
+    const newIncompleteTodos = [...incompleteTodos];
+    newIncompleteTodos.splice(index, 1);
+    const newComleteTodos = [...completeTodos, incompleteTodos[index]];
+    setInCompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newComleteTodos);
+    //alert(index);
   };
 
   return (
@@ -37,7 +51,7 @@ export const App = () => {
             return (
               <div key={todo} className="list-row">
                 <li>{todo}</li>
-                <button>完了</button>
+                <button onClick={() => onClickComplete(index)}>完了</button>
                 <button onClick={() => onClickDelete(index)}>削除</button>
               </div>
             );
